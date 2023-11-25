@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && mkdir -p .next/outstatic/content && cp outstatic/content/metadata.json .next/outstatic/content/metadata.json && ls -l .next/outstatic",
+    "build": "next build && mkdir -p .next/outstatic/content && cp outstatic/content/metadata.json .next/outstatic/content/metadata.json && ls -l .next/outstatic/content",
     "build:start": "next build && next start",
     "start": "next start",
     "lint": "next lint"
