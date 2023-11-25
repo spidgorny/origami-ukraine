@@ -26,9 +26,9 @@ export function HeaderWithPages() {
 
 async function LanguageSelector() {
   const db = await load();
-  const allPageLocales = await db
+  const allPageLocales = (await db
     .find({ collection: "pages" }, ["locale"])
-    .toArray();
+    .toArray()) as never as { locale: string }[];
   const locales = [
     ...new Set(allPageLocales.map((x) => x.locale?.split("-")[0])),
   ];
@@ -36,7 +36,7 @@ async function LanguageSelector() {
   const langImages = {
     en: "https://upload.wikimedia.org/wikipedia/commons/0/0b/English_language.svg",
     uk: "https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg",
-  };
+  } as Record<string, string>;
 
   return (
     <ul className="flex flex-col gap-1">
