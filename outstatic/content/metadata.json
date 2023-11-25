@@ -1,6 +1,6 @@
 {
-  "commit": "df1535a058dca85bdd07e7c33de93e4a59f43a7d",
-  "generated": "2023-11-25T20:01:24.904Z",
+  "commit": "6245d7536c00e87d661e6143400f0f4222e552df",
+  "generated": "2023-11-25T20:04:56.594Z",
   "metadata": [
     {
       "__outstatic": {
@@ -137,6 +137,25 @@
       "slug": "home",
       "status": "published",
       "title": "Home"
+    },
+    {
+      "__outstatic": {
+        "commit": "6245d7536c00e87d661e6143400f0f4222e552df",
+        "hash": "1593427715",
+        "path": "outstatic/content/pages/origami-ukrayina.md"
+      },
+      "author": {
+        "name": "Slawa Pidgorny",
+        "picture": "https://avatars.githubusercontent.com/u/1579235?v=4"
+      },
+      "collection": "pages",
+      "coverImage": "",
+      "description": "",
+      "locale": "ua-UA",
+      "publishedAt": "2023-11-25T20:07:37.704Z",
+      "slug": "origami-ukrayina",
+      "status": "draft",
+      "title": "Орігамі Україна 🌻"
     }
   ]
 }
