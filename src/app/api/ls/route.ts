@@ -5,7 +5,8 @@ export function GET(request: Request) {
   try {
     filesVarTask = fs.readdirSync("/var/task");
   } catch (e) {
-    filesVarTask = e.message;
+    // @ts-ignore
+    filesVarTask = e?.message;
   }
   return Response.json({
     filesDot: fs.readdirSync("."),
