@@ -10,7 +10,11 @@ function getLocale(request: NextRequest) {
   let languages = new Negotiator({ headers }).languages();
   let defaultLocale = "en";
 
-  return match(languages, locales, defaultLocale); // -> 'en-US'
+  try {
+    return match(languages, locales, defaultLocale); // -> 'en-US'
+  } catch (e) {
+    return defaultLocale;
+  }
 }
 
 export function middleware(request: NextRequest) {
