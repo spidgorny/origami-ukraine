@@ -23,8 +23,14 @@ export function middleware(request: NextRequest) {
 
   if (pathnameHasLocale) return;
 
-  // Redirect if there is no locale
   const locale = getLocale(request);
+
+  const blacklist = ["outstatic"];
+  if (blacklist.includes(locale)) {
+    return;
+  }
+
+  // Redirect if there is no locale
   request.nextUrl.pathname = `/${locale}${pathname}`;
   // e.g. incoming request is /products
   // The new URL is now /en-US/products
