@@ -7,6 +7,7 @@ author:
 slug: 'home'
 description: 'This is my blog.'
 coverImage: ''
+locale: 'en-US'
 publishedAt: '2022-03-17T05:35:07.322Z'
 ---
 

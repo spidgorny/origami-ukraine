@@ -1,6 +1,6 @@
 {
-  "commit": "0e0d7d9050b787b082c6eef2af4a01a05ae88750",
-  "generated": "2023-11-25T19:36:50.995Z",
+  "commit": "df1535a058dca85bdd07e7c33de93e4a59f43a7d",
+  "generated": "2023-11-25T20:01:24.904Z",
   "metadata": [
     {
       "__outstatic": {
@@ -121,8 +121,8 @@
     },
     {
       "__outstatic": {
-        "commit": "0e0d7d9050b787b082c6eef2af4a01a05ae88750",
-        "hash": "2655185271",
+        "commit": "df1535a058dca85bdd07e7c33de93e4a59f43a7d",
+        "hash": "2029466275",
         "path": "outstatic/content/pages/home.md"
       },
       "author": {
@@ -132,6 +132,7 @@
       "collection": "pages",
       "coverImage": "",
       "description": "This is my blog.",
+      "locale": "en-US",
       "publishedAt": "2022-03-17T05:35:07.322Z",
       "slug": "home",
       "status": "published",
