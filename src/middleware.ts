@@ -31,7 +31,7 @@ export function middleware(request: NextRequest) {
     pathname: request.nextUrl.pathname,
     firstLevel,
   });
-  const blacklist = ["outstatic", "api"];
+  const blacklist = ["_next", "outstatic", "api"];
   if (blacklist.includes(firstLevel)) {
     return;
   }
