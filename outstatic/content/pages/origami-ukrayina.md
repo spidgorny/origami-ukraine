@@ -1,6 +1,6 @@
 ---
 title: 'Орігамі Україна 🌻'
-status: 'draft'
+status: 'published'
 author:
   name: 'Slawa Pidgorny'
   picture: 'https://avatars.githubusercontent.com/u/1579235?v=4'

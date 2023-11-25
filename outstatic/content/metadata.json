@@ -1,6 +1,6 @@
 {
-  "commit": "6245d7536c00e87d661e6143400f0f4222e552df",
-  "generated": "2023-11-25T20:04:56.594Z",
+  "commit": "d18702d602651c7356c0d5499276348231d52500",
+  "generated": "2023-11-25T20:05:04.251Z",
   "metadata": [
     {
       "__outstatic": {
@@ -140,8 +140,8 @@
     },
     {
       "__outstatic": {
-        "commit": "6245d7536c00e87d661e6143400f0f4222e552df",
-        "hash": "1593427715",
+        "commit": "d18702d602651c7356c0d5499276348231d52500",
+        "hash": "2661205798",
         "path": "outstatic/content/pages/origami-ukrayina.md"
       },
       "author": {
@@ -154,7 +154,7 @@
       "locale": "ua-UA",
       "publishedAt": "2023-11-25T20:07:37.704Z",
       "slug": "origami-ukrayina",
-      "status": "draft",
+      "status": "published",
       "title": "Орігамі Україна 🌻"
     }
   ]
