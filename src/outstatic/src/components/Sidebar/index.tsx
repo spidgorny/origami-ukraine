@@ -1,66 +1,66 @@
-import Link from 'next/link'
-import { useContext, useEffect, useState } from 'react'
-import cookies from 'js-cookie'
-import { OutstaticContext } from '../../context'
-import generateUniqueId from '../../utils/generateUniqueId'
-import { OUTSTATIC_VERSION } from '../../utils/constants'
+import Link from "next/link";
+import { useContext, useEffect, useState } from "react";
+import cookies from "js-cookie";
+import { OutstaticContext } from "../../context";
+import generateUniqueId from "../../utils/generateUniqueId";
+import { OUTSTATIC_VERSION } from "../../utils/constants";
 
 type SidebarProps = {
-  isOpen: boolean
-}
+  isOpen: boolean;
+};
 
 type Broadcast = {
-  title: string
-  content: string
-  link: string
-}
+  title: string;
+  content: string;
+  link: string;
+};
 
 const initialBroadcast = () => {
-  const broadcast = cookies.get('ost_broadcast')
+  const broadcast = cookies.get("ost_broadcast");
 
-  return broadcast ? JSON.parse(broadcast) : null
-}
+  return broadcast ? JSON.parse(broadcast) : null;
+};
 
 const Sidebar = ({ isOpen = false }: SidebarProps) => {
   const [broadcast, setBroadcast] = useState<Broadcast | null>(
-    initialBroadcast()
-  )
-  const { collections, repoOwner, repoSlug } = useContext(OutstaticContext)
+    initialBroadcast(),
+  );
+  const { collections, repoOwner, repoSlug } = useContext(OutstaticContext);
 
   useEffect(() => {
     const fetchBroadcast = async () => {
-      const url = new URL(`https://analytics.outstatic.com/`)
-      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-      const uniqueId = await generateUniqueId({ repoOwner, repoSlug })
-      url.searchParams.append('timezone', timezone)
-      url.searchParams.append('unique_id', uniqueId)
-      url.searchParams.append('version', OUTSTATIC_VERSION)
+      const url = new URL(`https://analytics.outstatic.com/`);
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const uniqueId = await generateUniqueId({ repoOwner, repoSlug });
+      url.searchParams.append("timezone", timezone);
+      url.searchParams.append("unique_id", uniqueId);
+      url.searchParams.append("version", OUTSTATIC_VERSION);
       await fetch(url.toString())
         .then((res) => res.json())
         .then((data) => {
           if (data?.title) {
-            setBroadcast(data)
-            cookies.set('ost_broadcast', JSON.stringify(data), {
-              expires: 1 // 1 day
-            })
+            setBroadcast(data);
+            cookies.set("ost_broadcast", JSON.stringify(data), {
+              expires: 1, // 1 day
+            });
           }
         })
         .catch((err) => {
-          console.log(err)
-        })
-    }
+          console.log(err);
+        });
+    };
 
     if (!broadcast) {
-      fetchBroadcast()
+      fetchBroadcast();
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   return (
     <aside
-      className={`absolute top-[53px] z-20 h-full w-full md:relative md:top-0 md:block md:w-64 md:min-w-[16rem]${
-        isOpen ? 'block' : 'hidden'
+      className={`absolute top-[53px] z-20 h-full w-full md:relative md:top-0 md:block md:w-64 md:min-w-[16rem] ${
+        isOpen ? "block" : "hidden"
       }`}
       aria-label="Sidebar"
     >
@@ -211,7 +211,7 @@ const Sidebar = ({ isOpen = false }: SidebarProps) => {
         </div>
       </div>
     </aside>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;
