@@ -1,7 +1,26 @@
 {
-  "commit": "fd1168001096f4b69737a51ba585f86c30db64d4",
-  "generated": "Sun, 26 Nov 2023 17:08:27 GMT",
+  "commit": "293412a07dd6ab5e5cabf56e174410404a47cf7f",
+  "generated": "Sun, 26 Nov 2023 17:08:41 GMT",
   "metadata": [
+    {
+      "__outstatic": {
+        "commit": "89a4080b5787bc506a3b299f80371029ca899ca9",
+        "hash": "2029466275",
+        "path": "outstatic/content/pages/home.md"
+      },
+      "author": {
+        "name": "Andre Vitorio",
+        "picture": ""
+      },
+      "collection": "pages",
+      "coverImage": "",
+      "description": "This is my blog.",
+      "locale": "en-US",
+      "publishedAt": "2022-03-17T05:35:07.322Z",
+      "slug": "home",
+      "status": "published",
+      "title": "Home"
+    },
     {
       "__outstatic": {
         "commit": "525018a11c751fe66b5d0737807e67e06955cecd",
@@ -54,25 +73,6 @@
     },
     {
       "__outstatic": {
-        "commit": "89a4080b5787bc506a3b299f80371029ca899ca9",
-        "hash": "2029466275",
-        "path": "outstatic/content/pages/home.md"
-      },
-      "author": {
-        "name": "Andre Vitorio",
-        "picture": ""
-      },
-      "collection": "pages",
-      "coverImage": "",
-      "description": "This is my blog.",
-      "locale": "en-US",
-      "publishedAt": "2022-03-17T05:35:07.322Z",
-      "slug": "home",
-      "status": "published",
-      "title": "Home"
-    },
-    {
-      "__outstatic": {
         "commit": "72a160934f473b0357388f76bdc96b7ffd89e876",
         "hash": "1547622994",
         "path": "outstatic/content/pages/2023-11-24-origami-konferenciya-u-badaloni-ispaniya.md"
@@ -110,23 +110,6 @@
     },
     {
       "__outstatic": {
-        "commit": "aa1f387e5c66347e675bed0862b070d8946c95f4",
-        "hash": "1055690014",
-        "path": "outstatic/content/projects/couple-pizza.md"
-      },
-      "author": {
-        "name": "Bob Marley"
-      },
-      "collection": "projects",
-      "coverImage": "/images/couple-pizza.png",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
-      "publishedAt": "2022-03-16T05:35:07.322Z",
-      "slug": "couple-pizza",
-      "status": "published",
-      "title": "Couple Pizza"
-    },
-    {
-      "__outstatic": {
         "commit": "caeb954ea1579e04b6b74c80ddf718e56c60a67d",
         "hash": "1076515129",
         "path": "outstatic/content/projects/bearbnb.md"
@@ -158,6 +141,23 @@
       "slug": "the-wrong-decision",
       "status": "published",
       "title": "If you want to make the wrong decision, ask everyone"
+    },
+    {
+      "__outstatic": {
+        "commit": "aa1f387e5c66347e675bed0862b070d8946c95f4",
+        "hash": "1055690014",
+        "path": "outstatic/content/projects/couple-pizza.md"
+      },
+      "author": {
+        "name": "Bob Marley"
+      },
+      "collection": "projects",
+      "coverImage": "/images/couple-pizza.png",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
+      "publishedAt": "2022-03-16T05:35:07.322Z",
+      "slug": "couple-pizza",
+      "status": "published",
+      "title": "Couple Pizza"
     },
     {
       "__outstatic": {
