@@ -1,11 +1,11 @@
-import Link from 'next/link'
-import { useContext, useState } from 'react'
-import { AdminLayout } from '../../components'
-import Modal from '../../components/Modal'
-import { OutstaticContext } from '../../context'
-import { useCreateCommitMutation } from '../../graphql/generated'
-import { collectionCommitInput } from '../../utils/collectionCommitInput'
-import useOid from '../../utils/hooks/useOid'
+import Link from "next/link";
+import { useContext, useState } from "react";
+import { AdminLayout } from "../../components";
+import Modal from "../../components/Modal";
+import { OutstaticContext } from "../../context";
+import { useCreateCommitMutation } from "../../graphql/generated";
+import { collectionCommitInput } from "../../utils/collectionCommitInput";
+import useOid from "../../utils/hooks/useOid";
 
 export default function Collections() {
   const {
@@ -15,18 +15,18 @@ export default function Collections() {
     repoBranch,
     contentPath,
     monorepoPath,
-    removePage
-  } = useContext(OutstaticContext)
-  const [showDeleteModal, setShowDeleteModal] = useState(false)
-  const [selectedCollection, setSelectedCollection] = useState('')
-  const [deleting, setDeleting] = useState(false)
-  const [createCommit] = useCreateCommitMutation()
-  const fetchOid = useOid()
+    removePage,
+  } = useContext(OutstaticContext);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedCollection, setSelectedCollection] = useState("");
+  const [deleting, setDeleting] = useState(false);
+  const [createCommit] = useCreateCommitMutation();
+  const fetchOid = useOid();
 
   const deleteCollection = async (collection: string) => {
     try {
-      const oid = await fetchOid()
-      const owner = process.env.OST_REPO_OWNER || session?.user?.login || ''
+      const oid = await fetchOid();
+      const owner = process.env.OST_REPO_OWNER || session?.user?.login || "";
 
       const commitInput = collectionCommitInput({
         owner,
@@ -36,15 +36,15 @@ export default function Collections() {
         remove: true,
         contentPath,
         monorepoPath,
-        collection
-      })
+        collection,
+      });
 
-      await createCommit({ variables: commitInput })
-      setShowDeleteModal(false)
-      setDeleting(false)
-      removePage(collection)
+      await createCommit({ variables: commitInput });
+      setShowDeleteModal(false);
+      setDeleting(false);
+      removePage(collection);
     } catch (error) {}
-  }
+  };
 
   return (
     <AdminLayout title="Collections">
@@ -81,7 +81,7 @@ export default function Collections() {
                 </div>
               </Link>
               <p>
-                To learn more about how Collections work{' '}
+                To learn more about how Collections work{" "}
                 <a
                   href="https://outstatic.com/docs/introduction#what-are-collections"
                   target="_blank"
@@ -104,7 +104,7 @@ export default function Collections() {
               </div>
             </Link>
           </div>
-          <div className="max-w-5xl w-full grid grid-cols-3 gap-6">
+          <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-3 gap-6">
             {collections.map((collection) => (
               <div
                 key={collection}
@@ -139,8 +139,8 @@ export default function Collections() {
                     className="z-10 inline-block text-gray-500 hover:bg-white focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5"
                     type="button"
                     onClick={() => {
-                      setShowDeleteModal(true)
-                      setSelectedCollection(collection)
+                      setShowDeleteModal(true);
+                      setSelectedCollection(collection);
                     }}
                   >
                     <span className="sr-only">Delete content</span>
@@ -164,8 +164,8 @@ export default function Collections() {
         <Modal
           title="Delete Collection"
           close={() => {
-            setShowDeleteModal(false)
-            setSelectedCollection('')
+            setShowDeleteModal(false);
+            setSelectedCollection("");
           }}
         >
           <div className="space-y-6 p-6 text-left">
@@ -182,8 +182,8 @@ export default function Collections() {
               type="button"
               className="flex rounded-lg bg-red-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none"
               onClick={() => {
-                setDeleting(true)
-                deleteCollection(selectedCollection)
+                setDeleting(true);
+                deleteCollection(selectedCollection);
               }}
             >
               {deleting ? (
@@ -211,15 +211,15 @@ export default function Collections() {
                   Deleting
                 </>
               ) : (
-                'Delete'
+                "Delete"
               )}
             </button>
             <button
               type="button"
               className="rounded-lg border border-gray-200 px-5 py-2.5 text-sm font-medium focus:z-10 focus:outline-none focus:ring-4 order-gray-600 bg-gray-800 text-white hover:border-gray-600 hover:bg-gray-700 focus:ring-gray-700"
               onClick={() => {
-                setShowDeleteModal(false)
-                setSelectedCollection('')
+                setShowDeleteModal(false);
+                setSelectedCollection("");
               }}
             >
               Cancel
@@ -228,5 +228,5 @@ export default function Collections() {
         </Modal>
       )}
     </AdminLayout>
-  )
+  );
 }
