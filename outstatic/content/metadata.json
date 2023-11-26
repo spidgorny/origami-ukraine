@@ -1,6 +1,6 @@
 {
-  "commit": "d18702d602651c7356c0d5499276348231d52500",
-  "generated": "2023-11-25T20:05:04.251Z",
+  "commit": "a59ea3386d376e0d0757eeafeb47e6c2ea3bc7ed",
+  "generated": "2023-11-26T16:58:59.250Z",
   "metadata": [
     {
       "__outstatic": {
@@ -156,6 +156,25 @@
       "slug": "origami-ukrayina",
       "status": "published",
       "title": "Орігамі Україна 🌻"
+    },
+    {
+      "__outstatic": {
+        "commit": "a59ea3386d376e0d0757eeafeb47e6c2ea3bc7ed",
+        "hash": "3021506154",
+        "path": "outstatic/content/pages/2023-11-24-origami-konferenciya-u-badaloni-ispaniya.md"
+      },
+      "author": {
+        "name": "Slawa Pidgorny",
+        "picture": "https://avatars.githubusercontent.com/u/1579235?v=4"
+      },
+      "collection": "pages",
+      "coverImage": "",
+      "description": "",
+      "locale": "uk-UA",
+      "publishedAt": "2023-11-26T17:01:30.917Z",
+      "slug": "2023-11-24-origami-konferenciya-u-badaloni-ispaniya",
+      "status": "draft",
+      "title": "2023-11-24 Орігамі Конференція у Бадалоні (Іспанія)"
     }
   ]
 }
