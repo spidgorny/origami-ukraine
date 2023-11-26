@@ -20,6 +20,7 @@ interface Params {
   };
 }
 export async function generateMetadata(params: Params): Promise<Metadata> {
+  const locale = "en";
   const { project } = await getData(params);
 
   if (!project) {
@@ -96,6 +97,7 @@ export default async function Project(params: Params) {
               title="Other Projects"
               items={moreProjects}
               collection="projects"
+              linkPrefix={locale}
             />
           )}
         </div>
