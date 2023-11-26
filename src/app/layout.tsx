@@ -1,6 +1,6 @@
 import { absoluteUrl } from "@/lib/utils";
 import { Metadata } from "next";
-import "../styles/index.css";
+import "@/styles/index.css";
 import React from "react";
 
 export const metadata: Metadata = {
@@ -48,9 +48,7 @@ export default function RootLayout({
   // const LayoutComponent = isLayoutNeeded ? FrontendLayout : React.Fragment;
   return (
     <html lang="en">
-      <body>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

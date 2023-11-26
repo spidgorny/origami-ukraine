@@ -1,4 +1,4 @@
-import "../styles/index.css";
+import "@/styles/index.css";
 import React from "react";
 import { FrontendLayout } from "@/app/frontend-layout";
 

@@ -1,23 +1,23 @@
-import type { OstDocument } from 'outstatic'
-import Link from 'next/link'
-import Image from 'next/image'
+import type { OstDocument } from "@/outstatic/src/index";
+import Link from "next/link";
+import Image from "next/image";
 
 type Item = {
-  tags?: { value: string; label: string }[]
-} & OstDocument
+  tags?: { value: string; label: string }[];
+} & OstDocument;
 
 type Props = {
-  collection: 'posts' | 'projects'
-  title?: string
-  items: Item[]
-  priority?: boolean
-}
+  collection: "posts" | "projects";
+  title?: string;
+  items: Item[];
+  priority?: boolean;
+};
 
 const ContentGrid = ({
-  title = 'More',
+  title = "More",
   items,
   collection,
-  priority = false
+  priority = false,
 }: Props) => {
   return (
     <section id={collection}>
@@ -30,7 +30,7 @@ const ContentGrid = ({
             <div className="cursor-pointer border project-card rounded-md md:w-full scale-100 hover:scale-[1.02] active:scale-[0.97] motion-safe:transform-gpu transition duration-100 motion-reduce:hover:scale-100 hover:shadow overflow-hidden">
               <div className="sm:mx-0">
                 <Image
-                  src={item.coverImage ?? ''}
+                  src={item.coverImage ?? ""}
                   alt={`Cover Image for ${item.title}`}
                   className="object-cover object-center w-full h-auto"
                   width={0}
@@ -38,13 +38,13 @@ const ContentGrid = ({
                   sizes="(min-width: 768px) 347px, 192px"
                   priority={priority && id <= 2}
                 />
-                {collection === 'projects' && (
+                {collection === "projects" && (
                   <h2 className="p-2 bg-opacity-80 bg-white text-center whitespace-nowrap font-bold text-3xl absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 shadow-lg rounded-lg">
                     {item.title}
                   </h2>
                 )}
               </div>
-              {collection === 'posts' && (
+              {collection === "posts" && (
                 <div className="p-4">
                   {Array.isArray(item?.tags)
                     ? item.tags.map(({ label }) => (
@@ -70,7 +70,7 @@ const ContentGrid = ({
         ))}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default ContentGrid
+export default ContentGrid;

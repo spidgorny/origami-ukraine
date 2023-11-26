@@ -1,3 +1,5 @@
+import * as React from "react";
+
 export default function FourOhFour() {
   return (
     <>
@@ -47,5 +49,5 @@ export default function FourOhFour() {
         </main>
       </div>
     </>
-  )
+  );
 }

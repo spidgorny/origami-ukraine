@@ -1,34 +1,34 @@
-import { yupResolver } from '@hookform/resolvers/yup'
-import camelCase from 'camelcase'
-import { useContext, useEffect, useState } from 'react'
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import * as yup from 'yup'
-import { AdminLayout, Input } from '../../../components'
-import Alert from '../../../components/Alert'
-import Modal from '../../../components/Modal'
-import { OutstaticContext } from '../../../context'
-import { useCreateCommitMutation } from '../../../graphql/generated'
-import { CustomField, CustomFields, customFieldTypes } from '../../../types'
-import useFileQuery from '../../../utils/hooks/useFileQuery'
-import useNavigationLock from '../../../utils/hooks/useNavigationLock'
-import useOid from '../../../utils/hooks/useOid'
-import { createCommit as createCommitApi } from '../../../utils/createCommit'
-import TagInput from '../../../components/TagInput'
+import { yupResolver } from "@hookform/resolvers/yup";
+import camelCase from "camelcase";
+import { useContext, useEffect, useState } from "react";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import * as yup from "yup";
+import { AdminLayout, Input } from "../../../components";
+import Alert from "../../../components/Alert";
+import Modal from "../../../components/Modal";
+import { OutstaticContext } from "../../../context";
+import { useCreateCommitMutation } from "../../../graphql/generated";
+import { CustomField, CustomFields, customFieldTypes } from "../../../types";
+import useFileQuery from "../../../utils/hooks/useFileQuery";
+import useNavigationLock from "../../../utils/hooks/useNavigationLock";
+import useOid from "../../../utils/hooks/useOid";
+import { createCommit as createCommitApi } from "../../../utils/createCommit";
+import TagInput from "../../../components/TagInput";
 
 type AddCustomFieldProps = {
-  collection: string
-}
+  collection: string;
+};
 
-type CustomFieldForm = CustomField<'string' | 'number' | 'array'> & {
-  name: string
-}
+type CustomFieldForm = CustomField<"string" | "number" | "array"> & {
+  name: string;
+};
 
 const fieldDataMap = {
-  Text: 'string',
-  String: 'string',
-  Number: 'number',
-  Tags: 'array'
-} as const
+  Text: "string",
+  String: "string",
+  Number: "number",
+  Tags: "array",
+} as const;
 
 export default function AddCustomField({ collection }: AddCustomFieldProps) {
   const {
@@ -37,93 +37,94 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
     session,
     repoSlug,
     repoBranch,
-    repoOwner
-  } = useContext(OutstaticContext)
-  const [createCommit] = useCreateCommitMutation()
-  const fetchOid = useOid()
-  const [hasChanges, setHasChanges] = useState(false)
-  const [customFields, setCustomFields] = useState<CustomFields>({})
+    repoOwner,
+  } = useContext(OutstaticContext);
+  const [createCommit] = useCreateCommitMutation();
+  const fetchOid = useOid();
+  const [hasChanges, setHasChanges] = useState(false);
+  const [customFields, setCustomFields] = useState<CustomFields>({});
   const yupSchema = yup.object().shape({
     title: yup
       .string()
-      .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field.')
-      .required('Custom field name is required.'),
+      .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field.")
+      .required("Custom field name is required."),
     fieldType: yup
       .string()
       .oneOf([...customFieldTypes])
       .required(),
     description: yup.string(),
-    required: yup.boolean().required()
-  })
-  const [adding, setAdding] = useState(false)
-  const [error, setError] = useState('')
+    required: yup.boolean().required(),
+  });
+  const [adding, setAdding] = useState(false);
+  const [error, setError] = useState("");
   const methods = useForm<CustomFieldForm>({
-    mode: 'onChange',
-    resolver: yupResolver(yupSchema)
-  })
-  const [showAddModal, setShowAddModal] = useState(false)
-  const [showDeleteModal, setShowDeleteModal] = useState(false)
-  const [deleting, setDeleting] = useState(false)
+    mode: "onChange",
+    // @ts-ignore
+    resolver: yupResolver(yupSchema),
+  });
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const { data: schemaQueryData, loading } = useFileQuery({
-    file: `${collection}/schema.json`
-  })
-  const [selectedField, setSelectedField] = useState('')
-  const [fieldName, setFieldName] = useState('')
+    file: `${collection}/schema.json`,
+  });
+  const [selectedField, setSelectedField] = useState("");
+  const [fieldName, setFieldName] = useState("");
 
   const capiHelper = async ({
     customFields,
-    deleteField = false
+    deleteField = false,
   }: {
-    customFields: any
-    deleteField?: boolean
+    customFields: any;
+    deleteField?: boolean;
   }) => {
-    const oid = await fetchOid()
+    const oid = await fetchOid();
     const customFieldsJSON = JSON.stringify(
       {
         title: collection,
-        type: 'object',
-        properties: { ...customFields }
+        type: "object",
+        properties: { ...customFields },
       },
       null,
-      2
-    )
+      2,
+    );
 
     const capi = createCommitApi({
       message: `feat(${collection}): ${
-        deleteField ? 'delete' : 'add'
+        deleteField ? "delete" : "add"
       } ${fieldName} field`,
-      owner: repoOwner || session?.user?.login || '',
-      oid: oid ?? '',
+      owner: repoOwner || session?.user?.login || "",
+      oid: oid ?? "",
       name: repoSlug,
-      branch: repoBranch
-    })
+      branch: repoBranch,
+    });
 
     capi.replaceFile(
       `${
-        monorepoPath ? monorepoPath + '/' : ''
+        monorepoPath ? monorepoPath + "/" : ""
       }${contentPath}/${collection}/schema.json`,
-      customFieldsJSON + '\n'
-    )
+      customFieldsJSON + "\n",
+    );
 
-    const input = capi.createInput()
+    const input = capi.createInput();
 
-    return await createCommit({ variables: { input } })
-  }
+    return await createCommit({ variables: { input } });
+  };
 
   const onSubmit: SubmitHandler<CustomFieldForm> = async (
-    data: CustomFieldForm
+    data: CustomFieldForm,
   ) => {
-    setAdding(true)
-    const { title, fieldType, ...rest } = data
-    const fieldName = camelCase(title)
+    setAdding(true);
+    const { title, fieldType, ...rest } = data;
+    const fieldName = camelCase(title);
 
     if (!selectedField && customFields[fieldName]) {
-      methods.setError('title', {
-        type: 'manual',
-        message: 'Field name is already taken.'
-      })
-      setAdding(false)
-      return
+      methods.setError("title", {
+        type: "manual",
+        message: "Field name is already taken.",
+      });
+      setAdding(false);
+      return;
     }
 
     try {
@@ -131,74 +132,74 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
         ...rest,
         fieldType,
         dataType: fieldDataMap[fieldType],
-        title: data.title
-      }
+        title: data.title,
+      };
 
-      if (fieldDataMap[fieldType] === 'array') {
+      if (fieldDataMap[fieldType] === "array") {
         customFields[fieldName] = {
           ...customFields[fieldName],
           // @ts-ignore
-          values: data?.values || []
-        }
+          values: data?.values || [],
+        };
       }
 
-      const created = await capiHelper({ customFields })
+      const created = await capiHelper({ customFields });
 
       if (created) {
-        setCustomFields({ ...customFields })
+        setCustomFields({ ...customFields });
       }
     } catch (error) {
       // TODO: Better error treatment
-      setError('add')
-      console.log({ error })
+      setError("add");
+      console.log({ error });
     }
 
-    setHasChanges(false)
-    setSelectedField('')
-    setShowAddModal(false)
-    setAdding(false)
-  }
+    setHasChanges(false);
+    setSelectedField("");
+    setShowAddModal(false);
+    setAdding(false);
+  };
 
   const deleteField = async (name: string) => {
-    setDeleting(true)
+    setDeleting(true);
 
     try {
-      let newCustomFields = { ...customFields }
-      delete newCustomFields[name]
+      let newCustomFields = { ...customFields };
+      delete newCustomFields[name];
       const deleted = await capiHelper({
         customFields: newCustomFields,
-        deleteField: true
-      })
+        deleteField: true,
+      });
 
       if (deleted) {
-        setCustomFields(newCustomFields)
+        setCustomFields(newCustomFields);
       }
     } catch (error) {
       // TODO: Better error treatment
-      setError('delete')
-      console.log({ error })
+      setError("delete");
+      console.log({ error });
     }
-    setSelectedField('')
-    setShowDeleteModal(false)
-    setDeleting(false)
-    setHasChanges(false)
-  }
+    setSelectedField("");
+    setShowDeleteModal(false);
+    setDeleting(false);
+    setHasChanges(false);
+  };
 
   useEffect(() => {
-    const documentQueryObject = schemaQueryData?.repository?.object
-    if (documentQueryObject?.__typename === 'Blob') {
-      const schema = JSON.parse(documentQueryObject?.text || '{}')
-      setCustomFields(schema.properties)
+    const documentQueryObject = schemaQueryData?.repository?.object;
+    if (documentQueryObject?.__typename === "Blob") {
+      const schema = JSON.parse(documentQueryObject?.text || "{}");
+      setCustomFields(schema.properties);
     }
-  }, [schemaQueryData])
+  }, [schemaQueryData]);
 
   useEffect(() => {
-    const subscription = methods.watch(() => setHasChanges(true))
-    return () => subscription.unsubscribe()
-  }, [methods])
+    const subscription = methods.watch(() => setHasChanges(true));
+    return () => subscription.unsubscribe();
+  }, [methods]);
 
   // Ask for confirmation before leaving page if changes were made.
-  useNavigationLock(hasChanges)
+  useNavigationLock(hasChanges);
 
   return (
     <AdminLayout title="Add Custom Fields">
@@ -211,8 +212,8 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
             <button
               type="button"
               onClick={() => {
-                methods.reset()
-                setShowAddModal(true)
+                methods.reset();
+                setShowAddModal(true);
               }}
             >
               <div className="cursor-pointer rounded-lg border px-5 py-2.5 text-sm font-medium focus:outline-none focus:ring-4 border-gray-600 bg-gray-800 text-white hover:border-gray-600 hover:bg-gray-700 focus:ring-gray-700 no-underline">
@@ -253,7 +254,7 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
                       Add Custom Field
                     </div>
                     <p>
-                      To learn more about how Custom Fields work checkout{' '}
+                      To learn more about how Custom Fields work checkout{" "}
                       <a
                         href="https://outstatic.com/docs/custom-fields"
                         target="_blank"
@@ -279,9 +280,9 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
                           <button
                             type="button"
                             onClick={() => {
-                              methods.reset()
-                              setSelectedField(name)
-                              setShowAddModal(true)
+                              methods.reset();
+                              setSelectedField(name);
+                              setShowAddModal(true);
                             }}
                             className="text-left"
                           >
@@ -303,8 +304,8 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
                             className="z-10 inline-block text-gray-500 hover:bg-white focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5"
                             type="button"
                             onClick={() => {
-                              setShowDeleteModal(true)
-                              setSelectedField(name)
+                              setShowDeleteModal(true);
+                              setSelectedField(name);
                             }}
                           >
                             <span className="sr-only">Delete content</span>
@@ -319,7 +320,7 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
                             </svg>
                           </button>
                         </div>
-                      )
+                      );
                     })}
                 </div>
               </>
@@ -330,7 +331,7 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
           <div className="mt-8">
             <Alert type="error">
               <>
-                <span className="font-medium">Oops!</span> We are unable to{' '}
+                <span className="font-medium">Oops!</span> We are unable to{" "}
                 {error} your custom field.
               </>
             </Alert>
@@ -344,9 +345,9 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
                 : `Add Custom Field to ${collection}`
             }
             close={() => {
-              setHasChanges(false)
-              setSelectedField('')
-              setShowAddModal(false)
+              setHasChanges(false);
+              setSelectedField("");
+              setShowAddModal(false);
             }}
           >
             <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -354,7 +355,7 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
                 <div className="pt-6 pl-6">
                   <Alert type="info">
                     <>
-                      <span className="font-medium">Field name</span> and{' '}
+                      <span className="font-medium">Field name</span> and{" "}
                       <span className="font-medium">Field type</span> editing is
                       disabled to avoid data conflicts.
                     </>
@@ -365,8 +366,8 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
                 key={selectedField}
                 className={`flex p-6 text-left gap-4 ${
                   !!selectedField
-                    ? 'pt-0 opacity-50 cursor-not-allowed pointer-events-none hidden'
-                    : ''
+                    ? "pt-0 opacity-50 cursor-not-allowed pointer-events-none hidden"
+                    : ""
                 }`}
               >
                 <Input
@@ -380,12 +381,12 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
                   readOnly={!!selectedField}
                   autoFocus={!selectedField}
                   defaultValue={
-                    selectedField ? customFields[selectedField].title : ''
+                    selectedField ? customFields[selectedField].title : ""
                   }
                   registerOptions={{
                     onChange: (e) => {
-                      setFieldName(camelCase(e.target.value))
-                    }
+                      setFieldName(camelCase(e.target.value));
+                    },
                   }}
                 />
                 <div className="mb-5">
@@ -396,14 +397,14 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
                     Field type
                   </label>
                   <select
-                    {...methods.register('fieldType')}
+                    {...methods.register("fieldType")}
                     name="fieldType"
                     id="fieldType"
                     className="block cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 outline-none focus:border-blue-500 focus:ring-blue-500"
                     defaultValue={
                       selectedField
                         ? customFields[selectedField].fieldType
-                        : 'String'
+                        : "String"
                     }
                   >
                     {customFieldTypes.map((type) => {
@@ -415,7 +416,7 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
                         >
                           {type}
                         </option>
-                      )
+                      );
                     })}
                   </select>
                 </div>
@@ -431,14 +432,14 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
                   type="text"
                   helperText="This will be the label of the field"
                   defaultValue={
-                    selectedField ? customFields[selectedField].description : ''
+                    selectedField ? customFields[selectedField].description : ""
                   }
                 />
                 <fieldset>
                   <div className="flex mt-7">
                     <div className="flex items-center h-5">
                       <input
-                        {...methods.register('required')}
+                        {...methods.register("required")}
                         id="required"
                         type="checkbox"
                         className="cursor-pointer w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"
@@ -460,7 +461,7 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
                         id="helper-checkbox-text"
                         className="text-xs font-normal text-gray-500"
                       >
-                        <span className="capitalize">{collection}</span>{' '}
+                        <span className="capitalize">{collection}</span>{" "}
                         documents will only be saved if this field is not empty
                       </p>
                     </div>
@@ -468,8 +469,8 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
                 </fieldset>
               </div>
               {selectedField &&
-              customFields[selectedField].fieldType === 'Tags' &&
-              customFields[selectedField].dataType === 'array' ? (
+              customFields[selectedField].fieldType === "Tags" &&
+              customFields[selectedField].dataType === "array" ? (
                 <div className="flex px-6 text-left gap-4 mb-4">
                   <TagInput
                     label="Your tags"
@@ -482,13 +483,13 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
                     isSearchable={false}
                     components={{
                       DropdownIndicator: () => null,
-                      IndicatorSeparator: () => null
+                      IndicatorSeparator: () => null,
                     }}
                   />
                 </div>
               ) : null}
               <div className="space-x-2 rounded-b border-t p-6 text-sm text-gray-700">
-                This field will be accessible on the frontend as:{'  '}
+                This field will be accessible on the frontend as:{"  "}
                 <code className="bg-gray-200 font-semibold">
                   {selectedField ? selectedField : fieldName}
                 </code>
@@ -521,21 +522,21 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                         ></path>
                       </svg>
-                      {selectedField ? 'Editing' : 'Adding'}
+                      {selectedField ? "Editing" : "Adding"}
                     </>
                   ) : selectedField ? (
-                    'Edit'
+                    "Edit"
                   ) : (
-                    'Add'
+                    "Add"
                   )}
                 </button>
                 <button
                   type="button"
                   className="rounded-lg border border-gray-200 px-5 py-2.5 text-sm font-medium focus:z-10 focus:outline-none focus:ring-4 order-gray-600 bg-gray-800 text-white hover:border-gray-600 hover:bg-gray-700 focus:ring-gray-700"
                   onClick={() => {
-                    setHasChanges(false)
-                    setSelectedField('')
-                    setShowAddModal(false)
+                    setHasChanges(false);
+                    setSelectedField("");
+                    setShowAddModal(false);
                   }}
                 >
                   Cancel
@@ -548,13 +549,13 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
           <Modal
             title={`Delete ${customFields[selectedField].title} Field`}
             close={() => {
-              setShowDeleteModal(false)
-              setSelectedField('')
+              setShowDeleteModal(false);
+              setSelectedField("");
             }}
           >
             <div className="space-y-6 p-6 text-left">
               <p className="text-base leading-relaxed text-gray-500">
-                Are you sure you want to delete the{' '}
+                Are you sure you want to delete the{" "}
                 {customFields[selectedField].title} field?
               </p>
               <p className="text-base leading-relaxed text-gray-500">
@@ -568,8 +569,8 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
                 disabled={deleting}
                 className="flex rounded-lg bg-red-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none"
                 onClick={() => {
-                  setDeleting(true)
-                  deleteField(selectedField)
+                  setDeleting(true);
+                  deleteField(selectedField);
                 }}
               >
                 {deleting ? (
@@ -597,15 +598,15 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
                     Deleting
                   </>
                 ) : (
-                  'Delete'
+                  "Delete"
                 )}
               </button>
               <button
                 type="button"
                 className="rounded-lg border border-gray-200 px-5 py-2.5 text-sm font-medium focus:z-10 focus:outline-none focus:ring-4 order-gray-600 bg-gray-800 text-white hover:border-gray-600 hover:bg-gray-700 focus:ring-gray-700"
                 onClick={() => {
-                  setShowDeleteModal(false)
-                  setSelectedField('')
+                  setShowDeleteModal(false);
+                  setSelectedField("");
                 }}
               >
                 Cancel
@@ -615,5 +616,5 @@ export default function AddCustomField({ collection }: AddCustomFieldProps) {
         )}
       </FormProvider>
     </AdminLayout>
-  )
+  );
 }

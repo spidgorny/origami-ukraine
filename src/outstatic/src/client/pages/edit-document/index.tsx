@@ -1,51 +1,52 @@
-import { yupResolver } from '@hookform/resolvers/yup'
-import Head from 'next/head'
-import { usePathname } from 'next/navigation'
-import { singular } from 'pluralize'
-import { useEffect, useState } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
+import { yupResolver } from "@hookform/resolvers/yup";
+import Head from "next/head";
+import { usePathname } from "next/navigation";
+import { singular } from "pluralize";
+import { useEffect, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import {
   AdminLayout,
   MDEditor,
   DocumentSettings,
-  DocumentTitleInput
-} from '../../../components'
-import { DocumentContext } from '../../../context'
-import { CustomFields, Document } from '../../../types'
-import { useOstSession } from '../../../utils/auth/hooks'
-import { deepReplace } from '../../../utils/deepReplace'
-import useNavigationLock from '../../../utils/hooks/useNavigationLock'
-import useTipTap from '../../../utils/hooks/useTipTap'
-import { convertSchemaToYup, editDocumentSchema } from '../../../utils/yup'
-import useFileQuery from '../../../utils/hooks/useFileQuery'
-import useSubmitDocument from '../../../utils/hooks/useSubmitDocument'
-import { useDocumentUpdateEffect } from '../../../utils/hooks/useDocumentUpdateEffect'
-import { useFileStore } from '../../../utils/hooks/useFileStore'
+  DocumentTitleInput,
+} from "../../../components";
+import { DocumentContext } from "../../../context";
+import { CustomFields, Document } from "../../../types";
+import { useOstSession } from "../../../utils/auth/hooks";
+import { deepReplace } from "../../../utils/deepReplace";
+import useNavigationLock from "../../../utils/hooks/useNavigationLock";
+import useTipTap from "../../../utils/hooks/useTipTap";
+import { convertSchemaToYup, editDocumentSchema } from "../../../utils/yup";
+import useFileQuery from "../../../utils/hooks/useFileQuery";
+import useSubmitDocument from "../../../utils/hooks/useSubmitDocument";
+import { useDocumentUpdateEffect } from "../../../utils/hooks/useDocumentUpdateEffect";
+import { useFileStore } from "../../../utils/hooks/useFileStore";
 
 export default function EditDocument({ collection }: { collection: string }) {
-  const pathname = usePathname()
+  const pathname = usePathname();
   const [slug, setSlug] = useState(
-    pathname.split('/').pop() || `/${collection}/new`
-  )
-  const { session } = useOstSession()
-  const [loading, setLoading] = useState(false)
-  const [hasChanges, setHasChanges] = useState(false)
-  const [showDelete, setShowDelete] = useState(false)
-  const [documentSchema, setDocumentSchema] = useState(editDocumentSchema)
-  const methods = useForm<Document>({ resolver: yupResolver(documentSchema) })
-  const { editor } = useTipTap({ ...methods })
-  const [customFields, setCustomFields] = useState<CustomFields>({})
-  const files = useFileStore((state) => state.files)
+    pathname.split("/").pop() || `/${collection}/new`,
+  );
+  const { session } = useOstSession();
+  const [loading, setLoading] = useState(false);
+  const [hasChanges, setHasChanges] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
+  const [documentSchema, setDocumentSchema] = useState(editDocumentSchema);
+  // @ts-ignore
+  const methods = useForm<Document>({ resolver: yupResolver(documentSchema) });
+  const { editor } = useTipTap({ ...methods });
+  const [customFields, setCustomFields] = useState<CustomFields>({});
+  const files = useFileStore((state) => state.files);
 
   const editDocument = (property: string, value: any) => {
-    const formValues = methods.getValues()
-    const newValue = deepReplace(formValues, property, value)
-    methods.reset(newValue)
-  }
+    const formValues = methods.getValues();
+    const newValue = deepReplace(formValues, property, value);
+    methods.reset(newValue);
+  };
 
   const { data: schemaQueryData } = useFileQuery({
-    file: `${collection}/schema.json`
-  })
+    file: `${collection}/schema.json`,
+  });
 
   const onSubmit = useSubmitDocument({
     session,
@@ -59,13 +60,13 @@ export default function EditDocument({ collection }: { collection: string }) {
     customFields,
     setCustomFields,
     setHasChanges,
-    editor
-  })
+    editor,
+  });
 
   useEffect(() => {
-    window.history.replaceState({}, '', `/outstatic/${collection}/${slug}`)
+    window.history.replaceState({}, "", `/outstatic/${collection}/${slug}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slug])
+  }, [slug]);
 
   useDocumentUpdateEffect({
     collection,
@@ -74,22 +75,22 @@ export default function EditDocument({ collection }: { collection: string }) {
     editor,
     session,
     setHasChanges,
-    setShowDelete
-  })
+    setShowDelete,
+  });
 
   // Add custom fields
   useEffect(() => {
-    const documentQueryObject = schemaQueryData?.repository?.object
-    if (documentQueryObject?.__typename === 'Blob') {
-      const schema = JSON.parse(documentQueryObject?.text || '{}')
-      const yupSchema = convertSchemaToYup(schema)
-      setDocumentSchema(yupSchema)
-      setCustomFields(schema.properties)
+    const documentQueryObject = schemaQueryData?.repository?.object;
+    if (documentQueryObject?.__typename === "Blob") {
+      const schema = JSON.parse(documentQueryObject?.text || "{}");
+      const yupSchema = convertSchemaToYup(schema);
+      setDocumentSchema(yupSchema);
+      setCustomFields(schema.properties);
     }
-  }, [schemaQueryData])
+  }, [schemaQueryData]);
 
   // Ask for confirmation before leaving page if changes were made.
-  useNavigationLock(hasChanges)
+  useNavigationLock(hasChanges);
 
   return (
     <>
@@ -112,12 +113,12 @@ export default function EditDocument({ collection }: { collection: string }) {
           document: methods.getValues(),
           editDocument,
           hasChanges,
-          collection
+          collection,
         }}
       >
         <FormProvider {...methods}>
           <AdminLayout
-            title={methods.getValues('title')}
+            title={methods.getValues("title")}
             settings={
               <DocumentSettings
                 loading={loading}
@@ -141,5 +142,5 @@ export default function EditDocument({ collection }: { collection: string }) {
         </FormProvider>
       </DocumentContext.Provider>
     </>
-  )
+  );
 }

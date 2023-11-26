@@ -1,19 +1,19 @@
-'use client'
-import { yupResolver } from '@hookform/resolvers/yup'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useContext, useEffect, useState } from 'react'
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import { slugify } from 'transliteration'
-import * as yup from 'yup'
-import { AdminLayout, Input } from '../../../components'
-import Alert from '../../../components/Alert'
-import { OutstaticContext } from '../../../context'
-import { useCreateCommitMutation } from '../../../graphql/generated'
-import { Collection } from '../../../types'
-import { collectionCommitInput } from '../../../utils/collectionCommitInput'
-import useNavigationLock from '../../../utils/hooks/useNavigationLock'
-import useOid from '../../../utils/hooks/useOid'
+"use client";
+import { yupResolver } from "@hookform/resolvers/yup";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React, { useContext, useEffect, useState } from "react";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { slugify } from "transliteration";
+import * as yup from "yup";
+import { AdminLayout, Input } from "../../../components";
+import Alert from "../../../components/Alert";
+import { OutstaticContext } from "../../../context";
+import { useCreateCommitMutation } from "../../../graphql/generated";
+import { Collection } from "../../../types";
+import { collectionCommitInput } from "../../../utils/collectionCommitInput";
+import useNavigationLock from "../../../utils/hooks/useNavigationLock";
+import useOid from "../../../utils/hooks/useOid";
 
 export default function NewCollection() {
   const {
@@ -24,34 +24,35 @@ export default function NewCollection() {
     repoSlug,
     repoBranch,
     repoOwner,
-    addPage
-  } = useContext(OutstaticContext)
-  const router = useRouter()
-  const [createCommit] = useCreateCommitMutation()
-  const fetchOid = useOid()
-  const [hasChanges, setHasChanges] = useState(false)
-  const [collectionName, setCollectionName] = useState('')
-  const pagesRegex = new RegExp(`^(?!${pages.join('$|')}$)`, 'i')
-  const createCollection: yup.SchemaOf<Collection> = yup.object().shape({
+    addPage,
+  } = useContext(OutstaticContext);
+  const router = useRouter();
+  const [createCommit] = useCreateCommitMutation();
+  const fetchOid = useOid();
+  const [hasChanges, setHasChanges] = useState(false);
+  const [collectionName, setCollectionName] = useState("");
+  const pagesRegex = new RegExp(`^(?!${pages.join("$|")}$)`, "i");
+  const createCollection: yup.Schema<Collection> = yup.object().shape({
     name: yup
       .string()
       .matches(pagesRegex, `${collectionName} is already taken.`)
-      .required('Collection name is required.')
-  })
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
+      .required("Collection name is required."),
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const methods = useForm<Collection>({
-    resolver: yupResolver(createCollection)
-  })
+    // @ts-ignore
+    resolver: yupResolver(createCollection),
+  });
 
   const onSubmit: SubmitHandler<Collection> = async ({ name }: Collection) => {
-    setLoading(true)
-    setHasChanges(false)
+    setLoading(true);
+    setHasChanges(false);
 
     try {
-      const oid = await fetchOid()
-      const owner = repoOwner || session?.user?.login || ''
-      const collection = slugify(name)
+      const oid = await fetchOid();
+      const owner = repoOwner || session?.user?.login || "";
+      const collection = slugify(name);
       const commitInput = collectionCommitInput({
         owner,
         oid,
@@ -59,32 +60,32 @@ export default function NewCollection() {
         repoBranch,
         contentPath,
         monorepoPath,
-        collection
-      })
+        collection,
+      });
 
-      const created = await createCommit({ variables: commitInput })
+      const created = await createCommit({ variables: commitInput });
       if (created) {
-        addPage(collection)
-        setLoading(false)
-        router.push(`/outstatic/${collection}`)
+        addPage(collection);
+        setLoading(false);
+        router.push(`/outstatic/${collection}`);
       }
     } catch (error) {
       // TODO: Better error treatment
-      setLoading(false)
-      setHasChanges(false)
-      setError(true)
-      console.log({ error })
+      setLoading(false);
+      setHasChanges(false);
+      setError(true);
+      console.log({ error });
     }
-  }
+  };
 
   useEffect(() => {
-    const subscription = methods.watch(() => setHasChanges(true))
+    const subscription = methods.watch(() => setHasChanges(true));
 
-    return () => subscription.unsubscribe()
-  }, [methods])
+    return () => subscription.unsubscribe();
+  }, [methods]);
 
   // Ask for confirmation before leaving page if changes were made.
-  useNavigationLock(hasChanges)
+  useNavigationLock(hasChanges);
 
   return (
     <FormProvider {...methods}>
@@ -95,10 +96,10 @@ export default function NewCollection() {
         {error ? (
           <Alert type="error">
             <span className="font-medium">Oops!</span> We couldn&apos;t create
-            your collection. Please, make sure your settings are correct by{' '}
+            your collection. Please, make sure your settings are correct by{" "}
             <Link href="/outstatic/settings">
               <span className="underline">clicking here</span>
-            </Link>{' '}
+            </Link>{" "}
             .
           </Alert>
         ) : null}
@@ -116,11 +117,11 @@ export default function NewCollection() {
             helperText="We suggest naming the collection in plural form, ex: Docs"
             registerOptions={{
               onChange: (e) => {
-                setCollectionName(e.target.value)
+                setCollectionName(e.target.value);
               },
               onBlur: (e) => {
-                methods.setValue('name', e.target.value)
-              }
+                methods.setValue("name", e.target.value);
+              },
             }}
           />
           <button
@@ -153,18 +154,18 @@ export default function NewCollection() {
                 Saving
               </>
             ) : (
-              'Save'
+              "Save"
             )}
           </button>
         </form>
         {collectionName && (
           <Alert type="info">
-            The collection will appear as{' '}
-            <span className="font-semibold capitalize">{collectionName}</span>{' '}
+            The collection will appear as{" "}
+            <span className="font-semibold capitalize">{collectionName}</span>{" "}
             on the sidebar.
           </Alert>
         )}
       </AdminLayout>
     </FormProvider>
-  )
+  );
 }

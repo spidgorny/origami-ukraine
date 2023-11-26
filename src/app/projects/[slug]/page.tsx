@@ -1,29 +1,29 @@
-import Header from '@/components/Header'
-import Layout from '@/components/Layout'
-import markdownToHtml from '@/lib/markdownToHtml'
-import { getDocumentSlugs, load } from 'outstatic/server'
-import DateFormatter from '@/components/DateFormatter'
-import Image from 'next/image'
-import ContentGrid from '@/components/ContentGrid'
-import { OstDocument } from 'outstatic'
-import { Metadata } from 'next'
-import { absoluteUrl } from '@/lib/utils'
-import { notFound } from 'next/navigation'
+import Header from "@/components/Header";
+import Layout from "@/components/Layout";
+import markdownToHtml from "@/lib/markdownToHtml";
+import { getDocumentSlugs, load } from "@/outstatic/src/utils/server";
+import DateFormatter from "@/components/DateFormatter";
+import Image from "next/image";
+import ContentGrid from "@/components/ContentGrid";
+import { OstDocument } from "@/outstatic/src/index";
+import { Metadata } from "next";
+import { absoluteUrl } from "@/lib/utils";
+import { notFound } from "next/navigation";
 
 type Project = {
-  tags: { value: string; label: string }[]
-} & OstDocument
+  tags: { value: string; label: string }[];
+} & OstDocument;
 
 interface Params {
   params: {
-    slug: string
-  }
+    slug: string;
+  };
 }
 export async function generateMetadata(params: Params): Promise<Metadata> {
-  const { project } = await getData(params)
+  const { project } = await getData(params);
 
   if (!project) {
-    return {}
+    return {};
   }
 
   return {
@@ -32,28 +32,28 @@ export async function generateMetadata(params: Params): Promise<Metadata> {
     openGraph: {
       title: project.title,
       description: project.description,
-      type: 'article',
+      type: "article",
       url: absoluteUrl(`/projects/${project.slug}`),
       images: [
         {
-          url: absoluteUrl(project?.coverImage || '/images/og-image.png'),
+          url: absoluteUrl(project?.coverImage || "/images/og-image.png"),
           width: 1200,
           height: 630,
-          alt: project.title
-        }
-      ]
+          alt: project.title,
+        },
+      ],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: project.title,
       description: project.description,
-      images: absoluteUrl(project?.coverImage || '/images/og-image.png')
-    }
-  }
+      images: absoluteUrl(project?.coverImage || "/images/og-image.png"),
+    },
+  };
 }
 
 export default async function Project(params: Params) {
-  const { project, moreProjects, content } = await getData(params)
+  const { project, moreProjects, content } = await getData(params);
 
   return (
     <Layout>
@@ -64,7 +64,7 @@ export default async function Project(params: Params) {
             <div className="relative mb-2 md:mb-4 sm:mx-0 aspect-square">
               <Image
                 alt={project.title}
-                src={project.coverImage ?? ''}
+                src={project.coverImage ?? ""}
                 fill
                 className="object-cover object-center"
                 priority
@@ -75,7 +75,7 @@ export default async function Project(params: Params) {
                 {project.title}
               </h1>
               <div className="hidden md:block md:mb-8 text-slate-600">
-                Launched on <DateFormatter dateString={project.publishedAt} />{' '}
+                Launched on <DateFormatter dateString={project.publishedAt} />{" "}
                 {project?.author?.name ? `by ${project?.author?.name}` : null}.
               </div>
               <div className="inline-block p-4 border mb-8 font-semibold text-lg rounded shadow">
@@ -101,45 +101,45 @@ export default async function Project(params: Params) {
         </div>
       </div>
     </Layout>
-  )
+  );
 }
 
 async function getData({ params }: Params) {
-  const db = await load()
+  const db = await load();
   const project = await db
-    .find<Project>({ collection: 'projects', slug: params.slug }, [
-      'title',
-      'publishedAt',
-      'description',
-      'slug',
-      'author',
-      'content',
-      'coverImage'
+    .find<Project>({ collection: "projects", slug: params.slug }, [
+      "title",
+      "publishedAt",
+      "description",
+      "slug",
+      "author",
+      "content",
+      "coverImage",
     ])
-    .first()
+    .first();
 
   if (!project) {
-    notFound()
+    notFound();
   }
 
-  const content = await markdownToHtml(project.content)
+  const content = await markdownToHtml(project.content);
 
   const moreProjects = await db
-    .find({ collection: 'projects', slug: { $ne: params.slug } }, [
-      'title',
-      'slug',
-      'coverImage'
+    .find({ collection: "projects", slug: { $ne: params.slug } }, [
+      "title",
+      "slug",
+      "coverImage",
     ])
-    .toArray()
+    .toArray();
 
   return {
     project,
     content,
-    moreProjects
-  }
+    moreProjects,
+  };
 }
 
 export async function generateStaticParams() {
-  const posts = getDocumentSlugs('projects')
-  return posts.map((slug) => ({ slug }))
+  const posts = getDocumentSlugs("projects");
+  return posts.map((slug) => ({ slug }));
 }

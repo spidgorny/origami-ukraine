@@ -13,6 +13,8 @@ import CodeBlock from "./CodeBlock";
 import SlashCommand from "./SlashCommand";
 import { ToggleClass } from "./ToggleClass";
 
+console.log({ lowlight });
+
 export const TiptapExtensions = [
   StarterKit.configure({
     bulletList: {
