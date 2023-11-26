@@ -1,45 +1,7 @@
 {
   "commit": "fd1168001096f4b69737a51ba585f86c30db64d4",
-  "generated": "Sun, 26 Nov 2023 17:07:16 GMT",
+  "generated": "Sun, 26 Nov 2023 17:08:25 GMT",
   "metadata": [
-    {
-      "__outstatic": {
-        "commit": "72a160934f473b0357388f76bdc96b7ffd89e876",
-        "hash": "1547622994",
-        "path": "outstatic/content/pages/2023-11-24-origami-konferenciya-u-badaloni-ispaniya.md"
-      },
-      "author": {
-        "name": "Slawa Pidgorny",
-        "picture": "https://avatars.githubusercontent.com/u/1579235?v=4"
-      },
-      "collection": "pages",
-      "coverImage": "",
-      "description": "",
-      "locale": "uk-UA",
-      "publishedAt": "2023-11-26T17:01:30.917Z",
-      "slug": "2023-11-24-origami-konferenciya-u-badaloni-ispaniya",
-      "status": "draft",
-      "title": "2023-11-24 Орігамі Конференція у Бадалоні (Іспанія)"
-    },
-    {
-      "__outstatic": {
-        "commit": "498d1dd149226d2fab09463bbf6f123e78ef9958",
-        "hash": "4201239568",
-        "path": "outstatic/content/pages/origami-ukrayina.md"
-      },
-      "author": {
-        "name": "Slawa Pidgorny",
-        "picture": "https://avatars.githubusercontent.com/u/1579235?v=4"
-      },
-      "collection": "pages",
-      "coverImage": "",
-      "description": "",
-      "locale": "uk-UA",
-      "publishedAt": "2023-11-25T20:07:37.704Z",
-      "slug": "origami-ukrayina",
-      "status": "published",
-      "title": "Орігамі Україна 🌻"
-    },
     {
       "__outstatic": {
         "commit": "525018a11c751fe66b5d0737807e67e06955cecd",
@@ -73,6 +35,25 @@
     },
     {
       "__outstatic": {
+        "commit": "498d1dd149226d2fab09463bbf6f123e78ef9958",
+        "hash": "4201239568",
+        "path": "outstatic/content/pages/origami-ukrayina.md"
+      },
+      "author": {
+        "name": "Slawa Pidgorny",
+        "picture": "https://avatars.githubusercontent.com/u/1579235?v=4"
+      },
+      "collection": "pages",
+      "coverImage": "",
+      "description": "",
+      "locale": "uk-UA",
+      "publishedAt": "2023-11-25T20:07:37.704Z",
+      "slug": "origami-ukrayina",
+      "status": "published",
+      "title": "Орігамі Україна 🌻"
+    },
+    {
+      "__outstatic": {
         "commit": "89a4080b5787bc506a3b299f80371029ca899ca9",
         "hash": "2029466275",
         "path": "outstatic/content/pages/home.md"
@@ -92,6 +73,25 @@
     },
     {
       "__outstatic": {
+        "commit": "72a160934f473b0357388f76bdc96b7ffd89e876",
+        "hash": "1547622994",
+        "path": "outstatic/content/pages/2023-11-24-origami-konferenciya-u-badaloni-ispaniya.md"
+      },
+      "author": {
+        "name": "Slawa Pidgorny",
+        "picture": "https://avatars.githubusercontent.com/u/1579235?v=4"
+      },
+      "collection": "pages",
+      "coverImage": "",
+      "description": "",
+      "locale": "uk-UA",
+      "publishedAt": "2023-11-26T17:01:30.917Z",
+      "slug": "2023-11-24-origami-konferenciya-u-badaloni-ispaniya",
+      "status": "draft",
+      "title": "2023-11-24 Орігамі Конференція у Бадалоні (Іспанія)"
+    },
+    {
+      "__outstatic": {
         "commit": "b22b0f4f3d38a659cbab9b89ac2b7394f2446de4",
         "hash": "425893791",
         "path": "outstatic/content/projects/flycream-travel.md"
@@ -107,6 +107,23 @@
       "slug": "flycream-travel",
       "status": "published",
       "title": "Flycream Travel"
+    },
+    {
+      "__outstatic": {
+        "commit": "aa1f387e5c66347e675bed0862b070d8946c95f4",
+        "hash": "1055690014",
+        "path": "outstatic/content/projects/couple-pizza.md"
+      },
+      "author": {
+        "name": "Bob Marley"
+      },
+      "collection": "projects",
+      "coverImage": "/images/couple-pizza.png",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
+      "publishedAt": "2022-03-16T05:35:07.322Z",
+      "slug": "couple-pizza",
+      "status": "published",
+      "title": "Couple Pizza"
     },
     {
       "__outstatic": {
@@ -158,23 +175,6 @@
       "slug": "nothing-wrong",
       "status": "published",
       "title": "Nothing is wrong. Everything is perfect"
-    },
-    {
-      "__outstatic": {
-        "commit": "aa1f387e5c66347e675bed0862b070d8946c95f4",
-        "hash": "1055690014",
-        "path": "outstatic/content/projects/couple-pizza.md"
-      },
-      "author": {
-        "name": "Bob Marley"
-      },
-      "collection": "projects",
-      "coverImage": "/images/couple-pizza.png",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
-      "publishedAt": "2022-03-16T05:35:07.322Z",
-      "slug": "couple-pizza",
-      "status": "published",
-      "title": "Couple Pizza"
     }
   ]
 }
