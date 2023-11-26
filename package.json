@@ -95,7 +95,6 @@
     "@types/jest": "^29.5.10",
     "@types/js-cookie": "^3.0.6",
     "@types/json-stable-stringify": "^1.0.36",
-    "@types/lowlight": "^0.0.7",
     "@types/negotiator": "^0.6.3",
     "@types/node": "^20",
     "@types/pluralize": "^0.0.33",
