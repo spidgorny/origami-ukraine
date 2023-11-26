@@ -20,7 +20,6 @@ interface Params {
   };
 }
 export async function generateMetadata(params: Params): Promise<Metadata> {
-  const locale = "en";
   const { project } = await getData(params);
 
   if (!project) {
@@ -54,6 +53,7 @@ export async function generateMetadata(params: Params): Promise<Metadata> {
 }
 
 export default async function Project(params: Params) {
+  const locale = "en";
   const { project, moreProjects, content } = await getData(params);
 
   return (
