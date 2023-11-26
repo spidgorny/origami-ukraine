@@ -4,6 +4,7 @@ status: 'published'
 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
 coverImage: '/images/couple-pizza.png'
 publishedAt: '2022-03-16T05:35:07.322Z'
+locale: 'en'
 author:
   name: Bob Marley
 ---

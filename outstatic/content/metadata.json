@@ -2,11 +2,11 @@
   "commit": "293412a07dd6ab5e5cabf56e174410404a47cf7f",
   "generated": "Sun, 26 Nov 2023 17:08:41 GMT",
   "metadata": [
-    {
+ {
       "__outstatic": {
-        "commit": "89a4080b5787bc506a3b299f80371029ca899ca9",
-        "hash": "2029466275",
-        "path": "outstatic/content/pages/home.md"
+        "commit": "2e47122b5b6d49d6d1ddb15bcd33edc4a0c1256e",
+        "hash": "217348983",
+        "path": "/outstatic/content/pages/home.md"
       },
       "author": {
         "name": "Andre Vitorio",
@@ -15,44 +15,12 @@
       "collection": "pages",
       "coverImage": "",
       "description": "This is my blog.",
-      "locale": "en-US",
       "publishedAt": "2022-03-17T05:35:07.322Z",
       "slug": "home",
       "status": "published",
-      "title": "Home"
-    },
-    {
-      "__outstatic": {
-        "commit": "525018a11c751fe66b5d0737807e67e06955cecd",
-        "hash": "2506648264",
-        "path": "outstatic/content/posts/how-to-create-an-outstatic-blog.md"
-      },
-      "author": {
-        "name": "Andre Vitorio"
-      },
-      "collection": "posts",
-      "coverImage": "/images/jupiter-spaceship.png",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
-      "publishedAt": "2022-07-14T02:34:02.322Z",
-      "slug": "how-to-create-an-outstatic-blog",
-      "status": "published",
-      "tags": [
-        {
-          "label": "NextJs",
-          "value": "nextJs"
-        },
-        {
-          "label": "GitHub",
-          "value": "gitHub"
-        },
-        {
-          "label": "Outstatic",
-          "value": "outstatic"
-        }
-      ],
-      "title": "Learn how to create your blog with Outstatic"
-    },
-    {
+      "title": "Origami Ukraine",
+   "locale": "en"
+    },    {
       "__outstatic": {
         "commit": "498d1dd149226d2fab09463bbf6f123e78ef9958",
         "hash": "4201239568",
@@ -65,32 +33,12 @@
       "collection": "pages",
       "coverImage": "",
       "description": "",
-      "locale": "uk-UA",
+      "locale": "uk",
       "publishedAt": "2023-11-25T20:07:37.704Z",
       "slug": "origami-ukrayina",
       "status": "published",
       "title": "Орігамі Україна 🌻"
-    },
-    {
-      "__outstatic": {
-        "commit": "72a160934f473b0357388f76bdc96b7ffd89e876",
-        "hash": "1547622994",
-        "path": "outstatic/content/pages/2023-11-24-origami-konferenciya-u-badaloni-ispaniya.md"
-      },
-      "author": {
-        "name": "Slawa Pidgorny",
-        "picture": "https://avatars.githubusercontent.com/u/1579235?v=4"
-      },
-      "collection": "pages",
-      "coverImage": "",
-      "description": "",
-      "locale": "uk-UA",
-      "publishedAt": "2023-11-26T17:01:30.917Z",
-      "slug": "2023-11-24-origami-konferenciya-u-badaloni-ispaniya",
-      "status": "draft",
-      "title": "2023-11-24 Орігамі Конференція у Бадалоні (Іспанія)"
-    },
-    {
+    },    {
       "__outstatic": {
         "commit": "b22b0f4f3d38a659cbab9b89ac2b7394f2446de4",
         "hash": "425893791",
@@ -174,7 +122,26 @@
       "publishedAt": "2022-09-14T17:55:40.452Z",
       "slug": "nothing-wrong",
       "status": "published",
-      "title": "Nothing is wrong. Everything is perfect"
+      "title": "Nothing Wrong"
+    },
+    {
+      "__outstatic": {
+        "commit": "1da14cfa56ec8c94191f618ea158a8772f4f995e",
+        "hash": "1547622994",
+        "path": "outstatic/content/posts/2023-11-24-origami-konferenciya-u-badaloni-ispaniya.md"
+      },
+      "author": {
+        "name": "Slawa Pidgorny",
+        "picture": "https://avatars.githubusercontent.com/u/1579235?v=4"
+      },
+      "collection": "posts",
+      "coverImage": "/images/photo_2023-11-26_18-00-15-Q3NT.jpg",
+      "description": "",
+      "locale": "uk",
+      "publishedAt": "2023-11-26T17:01:30.917Z",
+      "slug": "2023-11-24-origami-konferenciya-u-badaloni-ispaniya",
+      "status": "draft",
+      "title": "2023-11-24 Орігамі Конференція у Бадалоні (Іспанія)"
     }
   ]
 }

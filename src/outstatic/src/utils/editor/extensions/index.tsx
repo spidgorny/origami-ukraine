@@ -7,14 +7,13 @@ import Link from "@tiptap/extension-link";
 import TiptapUnderline from "@tiptap/extension-underline";
 import { ReactNodeViewRenderer } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import * as lowlight from "lowlight";
+import { common, createLowlight } from "lowlight";
 import { Markdown } from "tiptap-markdown";
 import CodeBlock from "./CodeBlock";
 import SlashCommand from "./SlashCommand";
 import { ToggleClass } from "./ToggleClass";
 
-console.log({ lowlight });
-
+const lowlight = createLowlight(common);
 export const TiptapExtensions = [
   StarterKit.configure({
     bulletList: {

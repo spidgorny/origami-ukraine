@@ -1,5 +1,5 @@
 ---
-title: 'Home'
+title: 'Origami Ukraine'
 status: 'published'
 author:
   name: 'Andre Vitorio'
@@ -7,7 +7,7 @@ author:
 slug: 'home'
 description: 'This is my blog.'
 coverImage: ''
-locale: 'en-US'
+locale: 'en'
 publishedAt: '2022-03-17T05:35:07.322Z'
 ---
 

@@ -7,7 +7,7 @@ author:
 slug: 'origami-ukrayina'
 description: ''
 coverImage: ''
-locale: 'uk-UA'
+locale: 'uk'
 publishedAt: '2023-11-25T20:07:37.704Z'
 ---
 

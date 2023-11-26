@@ -4,6 +4,7 @@ status: 'published'
 description: 'Amazing rental locations for your teddy bear.'
 coverImage: '/images/bearbnb.png'
 publishedAt: '2022-03-17T05:35:07.322Z'
+locale: 'en'
 author:
   name: Andre Vitorio
 ---
