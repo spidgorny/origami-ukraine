@@ -1,19 +1,23 @@
 import fs from "fs";
+import path from "node:path";
 
 export function GET(request: Request) {
-  let filesVarTask;
-  try {
-    filesVarTask = fs.readdirSync("/var/task");
-  } catch (e) {
-    // @ts-ignore
-    filesVarTask = e?.message;
-  }
   return Response.json({
     cwd: process.cwd(),
-    filesDot: fs.readdirSync("."),
-    filesDotNext: fs.readdirSync(".next"),
-    filesDotVercel: fs.readdirSync(".vercel"),
-    filesOutstatic: fs.readdirSync("outstatic"),
-    filesVarTask: filesVarTask,
+    real: path.resolve(process.cwd()),
+    filesDot: tryReadDir("."),
+    filesDotNext: tryReadDir(".next"),
+    filesDotVercel: tryReadDir(".vercel"),
+    filesOutstatic: tryReadDir("outstatic"),
+    filesVarTask: tryReadDir("/var/task"),
   });
+}
+
+function tryReadDir(path: string) {
+  try {
+    return fs.readdirSync(path);
+  } catch (e) {
+    // @ts-ignore
+    return e?.message;
+  }
 }

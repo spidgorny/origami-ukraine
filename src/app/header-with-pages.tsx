@@ -1,4 +1,4 @@
-import { load } from "outstatic/server";
+import { load } from "@/outstatic/src/utils/server";
 import * as locale from "locale-codes";
 import Link from "next/link";
 import Image from "next/image";
