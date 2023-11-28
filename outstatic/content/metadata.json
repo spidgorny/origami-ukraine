@@ -1,6 +1,6 @@
 {
-  "commit": "cc3a2c57a0d166e6c27daaf73c5dc77eaacdf742",
-  "generated": "2023-11-26T18:29:35.413Z",
+  "commit": "296b5967080f8820030ad4992deb17eec1ee2fa6",
+  "generated": "2023-11-28T22:35:22.866Z",
   "metadata": [
     {
       "__outstatic": {
@@ -128,8 +128,8 @@
     },
     {
       "__outstatic": {
-        "commit": "cc3a2c57a0d166e6c27daaf73c5dc77eaacdf742",
-        "hash": "509334976",
+        "commit": "296b5967080f8820030ad4992deb17eec1ee2fa6",
+        "hash": "3736560232",
         "path": "outstatic/content/posts/2023-11-24-origami-konferenciya-u-badaloni-ispaniya.md"
       },
       "author": {
