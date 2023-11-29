@@ -10,7 +10,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <FrontendLayout>{children}</FrontendLayout>
+        <FrontendLayout locale="en">{children}</FrontendLayout>
       </body>
     </html>
   );

@@ -3,25 +3,49 @@ import * as locale from "locale-codes";
 import Link from "next/link";
 import Image from "next/image";
 
-export function HeaderWithPages() {
+export function HeaderWithPages({ locale }: Readonly<{ locale: string }>) {
   return (
     <div
-      className="bg-zinc-400 flex justify-between items-center opacity-75"
-      style={{
-        background:
-          "linear-gradient(90deg, rgba(9,87,178,1) 0%, rgba(9,178,167,1) 100%)",
-      }}
+      className="bg-zinc-100 flex justify-between items-center opacity-75"
+      style={
+        {
+          // background:
+          //   "linear-gradient(90deg, rgba(9,87,178,1) 0%, rgba(9,178,167,1) 100%)",
+        }
+      }
     >
-      <h1 className="text-2xl m-2 text-white font-bold">
+      <h1 className="ms-64 text-2xl m-2 font-bold">
         <Link href="/" className="p-2">
           Origami Ukraine
         </Link>
       </h1>
+      <Menu locale={locale} />
       <div className="m-2">
         <LanguageSelector />
       </div>
     </div>
   );
+}
+
+async function Menu({ locale }: Readonly<{ locale: string }>) {
+  const pages = await getMenuPages(locale);
+  return (
+    <ul className="flex flex-row gap-6">
+      {pages.map((x, index) => (
+        <li key={index}>
+          <Link href={`${locale}/${x.slug}`}>{x.title}</Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export async function getMenuPages(locale: string) {
+  const db = await load();
+
+  return await db
+    .find({ collection: "pages", locale }, ["title", "slug"])
+    .toArray();
 }
 
 async function LanguageSelector() {

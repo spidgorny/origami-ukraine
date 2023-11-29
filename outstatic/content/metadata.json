@@ -17,9 +17,9 @@
       "description": "This is my blog.",
       "locale": "en",
       "publishedAt": "2022-03-17T05:35:07.322Z",
-      "slug": "home",
+      "slug": "",
       "status": "published",
-      "title": "Origami Ukraine"
+      "title": "🏠 Home"
     },
     {
       "__outstatic": {
@@ -36,9 +36,28 @@
       "description": "",
       "locale": "uk",
       "publishedAt": "2023-11-25T20:07:37.704Z",
-      "slug": "origami-ukrayina",
+      "slug": "",
       "status": "published",
-      "title": "Орігамі Україна 🌻"
+      "title": "🏠 Дім"
+    },
+    {
+      "__outstatic": {
+        "commit": "498d1dd149226d2fab09463bbf6f123e78ef9958",
+        "hash": "4201239568",
+        "path": "outstatic/content/pages/origami-ukrayina.md"
+      },
+      "author": {
+        "name": "Slawa Pidgorny",
+        "picture": "https://avatars.githubusercontent.com/u/1579235?v=4"
+      },
+      "collection": "pages",
+      "coverImage": "",
+      "description": "",
+      "locale": "uk",
+      "publishedAt": "2023-11-25T20:07:37.704Z",
+      "slug": "contact",
+      "status": "published",
+      "title": "📞 Контакти"
     },
     {
       "__outstatic": {

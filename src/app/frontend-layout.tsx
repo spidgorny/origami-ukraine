@@ -2,7 +2,9 @@ import React, { PropsWithChildren } from "react";
 import { HeaderWithPages } from "@/app/header-with-pages";
 import Footer from "@/components/Footer";
 
-export function FrontendLayout(props: Readonly<PropsWithChildren>) {
+export function FrontendLayout(
+  props: Readonly<PropsWithChildren<{ locale: string }>>,
+) {
   return (
     <div
       className=""
@@ -15,7 +17,7 @@ export function FrontendLayout(props: Readonly<PropsWithChildren>) {
       }}
     >
       <div className="min-h-screen">
-        <HeaderWithPages />
+        <HeaderWithPages locale={props.locale} />
         {props.children}
       </div>
       <Footer />
