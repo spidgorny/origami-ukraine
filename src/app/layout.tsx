@@ -6,13 +6,13 @@ import React from "react";
 export const metadata: Metadata = {
   metadataBase: new URL("https://outstatic.com"),
   title: {
-    default: "Outstatic",
-    template: "%s | Outstatic",
+    default: "Орігамі в Україні / Origami Ukraine",
+    template: "%s | Орігамі в Україні / Origami Ukraine",
   },
-  description: "A blog starter built with Outstatic.",
+  description: "Новини та історія орігамі в Україні",
   openGraph: {
-    title: "Outstatic - A Static Site CMS for Next.js",
-    description: "A blog starter built with Outstatic.",
+    title: "Орігамі в Україні / Origami Ukraine",
+    description: "Новини та історія орігамі в Україні",
     url: absoluteUrl("/"),
     siteName: "Next.js",
     images: [

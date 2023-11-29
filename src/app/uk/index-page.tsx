@@ -7,32 +7,30 @@ export async function IndexPage({ locale }: Readonly<{ locale: string }>) {
   const { content, allPosts, allProjects } = await getData(locale);
 
   return (
-    <Layout>
-      <div className="max-w-6xl mx-auto px-5">
-        <section className="mt-16 mb-16 md:mb-12">
-          <div
-            className="prose lg:prose-2xl home-intro"
-            dangerouslySetInnerHTML={{ __html: content }}
-          />
-        </section>
-        {allPosts.length > 0 && (
-          <ContentGrid
-            title="Posts"
-            items={allPosts}
-            collection="posts"
-            priority
-            linkPrefix={locale + "/"}
-          />
-        )}
-        {/*{allProjects.length > 0 && (*/}
-        {/*  <ContentGrid*/}
-        {/*    title="Projects"*/}
-        {/*    items={allProjects}*/}
-        {/*    collection="projects"*/}
-        {/*  />*/}
-        {/*)}*/}
-      </div>
-    </Layout>
+    <div className="max-w-6xl mx-auto px-5">
+      <section className="mt-16 mb-16 md:mb-12">
+        <div
+          className="prose lg:prose-2xl home-intro"
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
+      </section>
+      {allPosts.length > 0 && (
+        <ContentGrid
+          title="Posts"
+          items={allPosts}
+          collection="posts"
+          priority
+          linkPrefix={locale + "/"}
+        />
+      )}
+      {/*{allProjects.length > 0 && (*/}
+      {/*  <ContentGrid*/}
+      {/*    title="Projects"*/}
+      {/*    items={allProjects}*/}
+      {/*    collection="projects"*/}
+      {/*  />*/}
+      {/*)}*/}
+    </div>
   );
 }
 

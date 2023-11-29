@@ -6,7 +6,7 @@ import Image from "next/image";
 export function HeaderWithPages() {
   return (
     <div
-      className="bg-zinc-400 flex justify-between items-center"
+      className="bg-zinc-400 flex justify-between items-center opacity-75"
       style={{
         background:
           "linear-gradient(90deg, rgba(9,87,178,1) 0%, rgba(9,178,167,1) 100%)",

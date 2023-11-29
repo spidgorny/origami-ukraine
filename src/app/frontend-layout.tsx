@@ -1,11 +1,24 @@
 import React, { PropsWithChildren } from "react";
 import { HeaderWithPages } from "@/app/header-with-pages";
+import Footer from "@/components/Footer";
 
-export function FrontendLayout(props: PropsWithChildren) {
+export function FrontendLayout(props: Readonly<PropsWithChildren>) {
   return (
-    <>
-      <HeaderWithPages />
-      {props.children}
-    </>
+    <div
+      className=""
+      style={{
+        backgroundImage: "url(/design1/top-left.png)",
+        backgroundAttachment: "0 0",
+        backgroundSize: "initial",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "-260px 0",
+      }}
+    >
+      <div className="min-h-screen">
+        <HeaderWithPages />
+        {props.children}
+      </div>
+      <Footer />
+    </div>
   );
 }
