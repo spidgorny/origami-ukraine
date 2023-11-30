@@ -14,8 +14,9 @@ export function HeaderWithPages({ locale }: Readonly<{ locale: string }>) {
         }
       }
     >
-      <h1 className="ms-64 text-2xl m-2 font-bold">
-        <Link href="/" className="p-2">
+      <h1 className="lg:ms-56 text-2xl m-2 font-bold">
+        <Link href="/" className="p-2 flex gap-3">
+          <Image src="/design1/logo.png" alt="Logo" width={32} height={32} />
           Origami Ukraine
         </Link>
       </h1>
@@ -30,7 +31,7 @@ export function HeaderWithPages({ locale }: Readonly<{ locale: string }>) {
 async function Menu({ locale }: Readonly<{ locale: string }>) {
   const pages = await getMenuPages(locale);
   return (
-    <ul className="flex flex-row gap-6">
+    <ul className="hidden lg:flex flex-row gap-6">
       {pages.map((x, index) => (
         <li key={index}>
           <Link href={`${locale}/${x.slug}`}>{x.title}</Link>

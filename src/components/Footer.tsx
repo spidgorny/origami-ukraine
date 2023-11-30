@@ -5,7 +5,6 @@ const Footer = () => {
     <footer
       className="bg-neutral-50"
       style={{
-        height: "900px",
         backgroundImage: "url(/design1/bottom-right.png)",
         backgroundAttachment: "bottom right",
         backgroundSize: "100%",
@@ -13,8 +12,8 @@ const Footer = () => {
         backgroundPosition: "",
       }}
     >
-      <div className="max-w-6xl mx-auto px-5 p-10">
-        <h3 className="my-6 flex gap-3">
+      <div className="max-w-6xl mx-auto px-5 py-52">
+        <h3 className="my-5 flex gap-3">
           <Link href="https://www.facebook.com/groups/1163445303705991/">
             <button
               type="button"
